@@ -9,9 +9,9 @@ option(ENABLE_MODULE_OPENGL "Enable the Chrono OpenGL module" OFF)
 
 if(NOT ENABLE_MODULE_OPENGL)
   # Hide Chrono::OpenGL specific variables
-  mark_as_advanced(FORCE GLM_INCLUDE_DIR)
   mark_as_advanced(FORCE GLEW_DIR)
-  mark_as_advanced(FORCE GLFW_DIR)
+  mark_as_advanced(FORCE GLFW3_DIR)
+  mark_as_advanced(FORCE GLM_INCLUDE_DIR)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     mark_as_advanced(FORCE GLEW_DLL)
     mark_as_advanced(FORCE GLFW_DLL)
@@ -23,9 +23,9 @@ endif()
 message(STATUS "\n==== Chrono OpenGL module ====\n")
 
 # Show Chrono::OpenGL specific variables
-mark_as_advanced(CLEAR GLM_INCLUDE_DIR)
 mark_as_advanced(CLEAR GLEW_DIR)
 mark_as_advanced(CLEAR GLFW3_DIR)
+mark_as_advanced(CLEAR GLM_INCLUDE_DIR)
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   mark_as_advanced(CLEAR GLEW_DLL)
   mark_as_advanced(CLEAR GLFW_DLL)
@@ -40,12 +40,7 @@ cmake_policy(SET CMP0072 NEW)
 find_package(OpenGL)
 find_package(GLM REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(glfw3 REQUIRED)
-
-message(STATUS "OpenGL found: ${OPENGL_FOUND}")
-message(STATUS "GLM found:    ${GLM_FOUND}")
-message(STATUS "GLEW found:   ${GLEW_FOUND}")
-message(STATUS "GLFW3 found:  ${glfw3_FOUND}")
+find_package(GLFW3 REQUIRED)
 
 # On windows, ask for the GLEW and GLFW DLLs so that we can copy. This is
 # optional.  If not specified, it is the user's responsibility to make them
@@ -56,7 +51,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 endif()
 
 # If all dependencies are available, enable building OpenGL support.
-if(OPENGL_FOUND AND GLM_FOUND AND GLEW_FOUND AND glfw3_FOUND)
+if(OPENGL_FOUND AND GLM_FOUND AND GLEW_FOUND AND GLFW3_FOUND)
     set(CHRONO_OPENGL "#define CHRONO_OPENGL")
     message(STATUS "OpenGL libraries: ${OPENGL_LIBRARIES}")
     message(STATUS "GLM_INCLUDE_DIRS: ${GLM_INCLUDE_DIRS}")
