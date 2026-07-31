@@ -294,6 +294,7 @@ class ChApi ChElementBeamEuler : public ChElementBeam,
     bool use_geometric_stiffness;
 
     friend class ChExtruderBeamEuler;
+    friend class ChElementBeamEulermod;
 };
 
 /// @} fea_elements
