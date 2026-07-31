@@ -20,6 +20,15 @@
 #include "chrono/fea/ChElementCorotational.h"
 #include "chrono/fea/ChNodeFEAxyzrot.h"
 
+// Forward-declared at global scope (proteus's own ProtChMoorings.h declares this
+// class unqualified, not inside namespace chrono) so the friend declaration below
+// can refer to it with an explicit ::  -- an unqualified `friend class
+// ChElementBeamEulermod;` inside namespace chrono::fea would instead silently
+// declare/befriend a *different*, chrono::fea::-scoped class of that name, per the
+// usual C++ friend-declaration namespace rules, leaving proteus's actual global
+// class still without access.
+class ChElementBeamEulermod;
+
 namespace chrono {
 namespace fea {
 
@@ -294,7 +303,7 @@ class ChApi ChElementBeamEuler : public ChElementBeam,
     bool use_geometric_stiffness;
 
     friend class ChExtruderBeamEuler;
-    friend class ChElementBeamEulermod;
+    friend class ::ChElementBeamEulermod;
 };
 
 /// @} fea_elements
